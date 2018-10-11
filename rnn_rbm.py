@@ -25,10 +25,17 @@ class RNNRBM(object):
         self.rnn_hidden_dim = rnn_hidden_dim
 
 
+    def _rel_error(self, x, y):
+        """ return relative error"""
+        return np.max(np.abs(x - y) / np.maximum(1e-8, np.abs(x) + np.abs(y)))
+
+
     def _forward_pass(self, visible, caches):
-        ## forward pass for each sample (multiple steps)
-        ## return list caches, which each element is 
-        ## the result from one timestep
+        """
+        forward pass for each sample (multiple steps)
+        return list caches, which each element is 
+        the result from one timestep.
+        """
         def get_bias(u_tm1):
             bh_t = self.bh + np.matmul(u_tm1, self.wuh)
             bv_t = self.bv + np.matmul(u_tm1, self.wuv)
@@ -104,7 +111,6 @@ class RNNRBM(object):
             dwuv = np.matmul(u_ts.T, dbv_ts)
             dbh = np.reshape(np.sum(dbh_ts, axis=0), [1, self.hidden_dim])
             dbv = np.reshape(np.sum(dbv_ts, axis=0), [1, self.visible_dim])
-
             ## compute gradients of rnn papameters
             du_ts = [np.zeros((1, self.rnn_hidden_dim))]
             for i in reversed(list(range(time_steps))):
