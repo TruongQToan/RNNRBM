@@ -7,7 +7,7 @@ def gibbs_sample(visible, w, bh, bv, num_steps=50):
     def gibbs_step(visible):
         h_probs = sigmoid(bh + np.matmul(visible, w))
         h_samples = sample(h_probs)
-        v_probs = sigmoid(bv + np.matmul(h_samples, w.T))
+        v_probs = bv + np.matmul(h_samples, w.T)
         v_samples = sample(v_probs, 'gaussian')
         return h_probs, h_samples, v_probs, v_samples
     

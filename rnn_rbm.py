@@ -47,6 +47,8 @@ class RNNRBM(object):
 
         time_steps = visible.shape[0]
         u_tm1 = self.u0
+        sum1 = 0.0
+        sum2 = 0.0
         for t in range(1, time_steps):
             v_t = visible[t]
             v_tm1 = visible[t - 1]
@@ -54,6 +56,8 @@ class RNNRBM(object):
             ## gibbs sampling start from v_tm1
             negative_sample, h_probs0, h_probs1 = gibbs_sample(v_tm1, self.w, bh_t, bv_t)
             caches.append((v_t, negative_sample, h_probs0, h_probs1, bh_t, bv_t))
+            sum1 += v_t
+            sum2 += negative_sample
             ut = get_rnn_hidden(v_t, u_tm1)
             u_tm1 = ut
         return caches

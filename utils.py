@@ -3,7 +3,8 @@ import pandas as pd
 
 
 def sigmoid(x):
-    return np.exp(x) / np.sum(np.exp(x), axis=1, keepdims=True)
+    exp_x = np.exp(x)
+    return exp_x / (exp_x + 1)
 
 
 def sample(probs, distribution='binomial'):
@@ -11,7 +12,8 @@ def sample(probs, distribution='binomial'):
     if distribution == 'binomial':
         return np.random.binomial(1, probs, probs.shape)
     elif distribution == 'gaussian':
-        return np.random.normal(probs, scale=1, size=probs.shape)
+        s = np.random.normal(probs, scale=1, size=probs.shape)
+        return s
 
 
 def create_batches(data_set, batch_size):
