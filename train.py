@@ -2,7 +2,7 @@ import numpy as np
 import sys
 from utils import load_data, preprocess_data
 from rnn_rbm import RNNRBM
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 
 if __name__ == '__main__':
@@ -17,8 +17,8 @@ if __name__ == '__main__':
     print ("Start training")
     preds, y, mae = model.train(X_train, y_train)
     print ("Finish training")
-    plt.plot(y, 'b-', label='True values')
-    plt.plot(preds, 'r-', label='Predicted values')
-    plt.legend(loc='upper left')
-    plt.title('Prediction {} \nMAE:{} \n'.format(dev.upper(), str(mae)))
-    plt.show()
+    # plt.plot(y, 'b-', label='True values')
+    # plt.plot(preds, 'r-', label='Predicted values')
+    # plt.legend(loc='upper left')
+    # plt.title('Prediction {} \nMAE:{} \n'.format(dev.upper(), str(mae)))
+    # plt.show()
