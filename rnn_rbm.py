@@ -1,5 +1,5 @@
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from rbm import gibbs_sample, gradients
 from utils import sigmoid
 import pickle
