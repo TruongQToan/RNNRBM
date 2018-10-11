@@ -64,7 +64,7 @@ class RNNRBM(object):
         grads = []
         for t in reversed(list(range(time_steps))):
             v_t, negative_sample, h_probs0, h_probs1, bh_t, bv_t = caches[t]
-            dw_t, dbh_t, dbv_t = gradients(v_t, negative_sample, h_probs0, h_probs1)
+            dw_t, dbh_t, dbv_t = gradients(v_t, negative_sample, bh_t, self.w)
             grads.append((dw_t, dbh_t, dbv_t))
         return grads
     

@@ -24,8 +24,13 @@ def gibbs_sample(visible, w, bh, bv, num_steps=50):
     return v_sample, h_probs0, h_probs1
 
 
-def gradients(v, v_sample, hprobs0, hprobs1):
-    dw = np.matmul(v_sample.T, hprobs1) - np.matmul(v.T, hprobs0)
-    dbh = hprobs1 - hprobs0
+def gradients(v, v_sample, bh_t, w):
+    sigmoid1 = sigmoid(np.matmul(v_sample, w) - bh_t)
+    sigmoid2 = sigmoid(np.matmul(v, w) - bh_t)
+    dw = np.matmul(v_sample.T, sigmoid1) - np.matmul(v.T, sigmoid2)
+    dbh = sigmoid1 - sigmoid2
+    # dw = sigmoid(np.matmul(v_sample, w) - bh_t)
+    # dw = np.matmul(v_sample.T, hprobs1) - np.matmul(v.T, hprobs0)
+    # dbh = hprobs1 - hprobs0
     dbv = v_sample - v
     return dw, dbh, dbv
